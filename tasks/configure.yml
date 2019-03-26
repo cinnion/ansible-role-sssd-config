@@ -1,0 +1,92 @@
+---
+- name: Copy CA files to the system
+  copy:
+    src: files/ca-certs/
+    dest: "{{ ca_trusted_dir }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - update bundles
+    - restart sssd
+
+- name: Create/copy main SSSD config file from template
+  template:
+    src: sssd.conf.j2
+    dest: /etc/sssd/sssd.conf
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - restart sssd
+
+- name: Create/copy SSSD domain config file snippet from template
+  template:
+    src: sssd-domain.conf.j2
+    dest: "{{sssd_conf_dir}}/sssd-{{nfs_domain}}.conf"
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - restart sssd
+
+- name: Copy the SSSD config file snippets
+  copy:
+    src: sssd/conf.d/
+    dest: "{{ sssd_conf_dir }}"
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - restart sssd
+
+- name: Create/copy auto.home file created from template
+  template:
+    src: auto.home.j2
+    dest: /etc/auto.home
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart autofs
+  when:
+    - nfs_home_server is defined
+
+- name: Push home.autofs file
+  copy:
+    src: home.autofs
+    dest: /etc/auto.master.d/home.autofs
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart autofs
+  when:
+    - nfs_home_server is defined
+
+- name: Fix use_nfs_home_dirs to tell SELinux to allow NFS home directories
+  seboolean:
+    name: use_nfs_home_dirs
+    persistent: true
+    state: true
+  when:
+    - nfs_home_server is defined
+
+- name: Create/copy idmapd.conf from template
+  template:
+    src: idmapd.conf.j2
+    dest: /etc/idmapd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart idmapd
+
+- name: Push ldap.conf from template
+  template:
+    src: ldap.conf.j2
+    dest: "{{ldap_dir}}/ldap.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart sssd
+    - restart idmapd

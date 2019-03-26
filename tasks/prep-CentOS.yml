@@ -1,0 +1,14 @@
+---
+# Setup tasks for CentOS systems
+- name: Make sure we have the necessary selinux module for python on CentOS
+  yum:
+    name:
+      - libselinux-python
+      - libsemanage-python
+    state: present
+  when: (ansible_distribution == 'CentOS' and ansible_distribution_major_version in [ '6', '7' ])
+
+- name: Make sure we have the autofs package
+  dnf:
+    name: autofs
+    state: installed

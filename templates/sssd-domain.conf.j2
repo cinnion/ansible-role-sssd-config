@@ -1,0 +1,17 @@
+[domain/{{nfs_domain}}]
+id_provider = ldap
+auth_provider = ldap
+
+cache_credentials = True
+
+autofs_provider = ldap
+chpass_provider = ldap
+
+ldap_uri = ldap://{{nfs_ldap_server}}/
+ldap_search_base = {{nfs_ldap_base}}
+enumerate = true
+
+ldap_id_use_start_tls = True
+ldap_tls_cacertdir = /etc/openldap/cacerts
+
+debug_level = 0xFFF0 

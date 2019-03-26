@@ -1,0 +1,14 @@
+---
+# Setup tasks for Fedora systems
+- name: Make sure we have the necessary selinux module for python on Fedora
+  dnf:
+    name:
+      - python2-libselinux
+      - python2-libsemanage
+    state: installed
+  when: (ansible_distribution == 'Fedora' and ansible_distribution_major_version in [ '29' ])
+
+- name: Make sure we have the autofs package
+  dnf:
+    name: autofs
+    state: installed

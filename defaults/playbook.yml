@@ -1,0 +1,11 @@
+---
+# Playbook for configuring sssd, autofs and idmapd for a user domain.
+- hosts: all
+
+  roles:
+    - role: sssd-config
+      when:
+        - nfs_home_server is defined
+        - nfs_domain is defined
+        - nfs_ldap_server is defined
+        - nfs_ldap_base is defined
