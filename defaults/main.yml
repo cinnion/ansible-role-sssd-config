@@ -5,35 +5,12 @@
 # Configuration file locations
 #
 
-# The directory where we will place our CA root certificate files.
-ca_trusted_dir: /etc/pki/ca-trust/source/anchors
-
-# The command we will run to rebuild our certificate trust database.
-ca_update_command: update-ca-trust
-
 # The directory where we will place our ldap.conf file.
 ldap_dir: /etc/openldap/
-
-# The directory where we will put our sssd configuration snippets.
-sssd_conf_dir: /etc/sssd/conf.d/
 
 #
 # Service related variables
 #
-
-# The name of the autofs service/daemon.
-autofs_daemon: autofs
-
-# What the initial state of the initial state of the autofs service is to be when
-# installed. Recommended values: `started` or `stopped`.
-autofs_service_state: started
-
-# Whether the autofs service is to be enabled: `true` or `false`.
-autofs_service_enabled: true
-
-# The autofs state when configuration changes are made. Recommended
-# values: `restarted` or `reloaded`.
-autofs_restarted_state: restarted
 
 # The name of the idmapd service/daemon.
 idmapd_daemon: nfs-idmapd
@@ -63,8 +40,33 @@ sssd_service_enabled: true
 # values: `restarted` or `reloaded`.
 sssd_restarted_state: restarted
 
-# The username to which root or unmapped users are mapped to during ID
-# mapping.
+#
+# The name of the LDAP server
+#
+ldap_server:	        ldaps.example.com
+
+#
+# The URI for the LDAP server
+#
+ldap_uri:	        ldap://ldaps.example.com
+
+#
+# The LDAP base to use
+#
+ldap_base:	        dc=example,dc=com
+
+#
+# Whether or not to start TLS in the LDAP connection.
+# Possible values: 'True' or 'False'
+#
+ldap_id_use_start_tls:  False
+
+#
+# The SSSD domain to use. Generally corresponds to the NFS domain.
+#
+sssd_domain:            example.com
+
+# The username to which root or unmapped users are mapped to during ID mapping.
 nfs_nobody_user: nobody
 
 # The group to which root/wheel or unmapped groups are mapped during ID mapping.

@@ -36,7 +36,7 @@ Domain = {{ nfs_domain }}
 # translated to upper-case.
 # Note that if this value is specified, the local realm name
 # must be included in the list!
-#Local-Realms = 
+#Local-Realms =
 
 [Mapping]
 
@@ -59,7 +59,7 @@ Nobody-Group = {{ nfs_nobody_group }}
 # If this option is omitted, the same methods as those
 # specified in "Method" are used.
 #GSS-Methods = <alternate method list for translating GSS names>
- 
+
 #-------------------------------------------------------------------#
 # The following are used only for the "static" Translation Method.
 #-------------------------------------------------------------------#
@@ -78,10 +78,10 @@ Nobody-Group = {{ nfs_nobody_group }}
 [UMICH_SCHEMA]
 
 # server information (REQUIRED)
-LDAP_server = {{ nfs_ldap_server }}
+LDAP_server = {{ ldap_server }}
 
 # the default search base (REQUIRED)
-LDAP_base = {{ nfs_ldap_base }}
+LDAP_base = {{ ldap_base }}
 
 #-----------------------------------------------------------#
 # The remaining options have defaults (as shown)
@@ -119,7 +119,7 @@ LDAP_base = {{ nfs_ldap_base }}
 #GSS_principal_attr = GSSAuthName
 
 # Mapping for the account name attribute (usually uid)
-# The value for this attribute must match the value of 
+# The value for this attribute must match the value of
 # the group member attribute - NFSv4_member_attr
 #NFSv4_acctname_attr = uid
 

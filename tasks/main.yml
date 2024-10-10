@@ -1,6 +1,4 @@
 ---
-# tasks file for sssd-config
-
 - name: Include OS-specific preparation/setup tasks
   include_tasks: "prep-{{ ansible_distribution }}.yml"
 

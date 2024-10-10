@@ -1,10 +1,4 @@
 ---
-- name: Ensure autofs is started and enabled on boot
-  service:
-    name: "{{ autofs_daemon }}"
-    state: "{{ autofs_service_state }}"
-    enabled: "{{ autofs_service_enabled }}"
-
 - name: Ensure rpc.idmapd is started and enabled on boot
   service:
     name: "{{ idmapd_daemon }}"

@@ -1,22 +1,11 @@
 ---
 # handlers file for sssd configuration
-- name: update bundles
-  command: "{{ca_update_command}}"
-
-- name: restart autofs
-  service:
-    name: "{{ autofs_daemon }}"
-    state: "{{ autofs_restarted_state }}"
-
-- name: restart idmapd
-  service:
-    name: "{{ idmapd_daemon }}"
-    state: "{{ idmapd_restarted_state }}"
-
 - name: restart sssd
   service:
     name: "{{ sssd_daemon }}"
     state: "{{ sssd_restarted_state }}"
 
-
-...
+- name: restart idmapd
+  service:
+    name: "{{ idmapd_daemon }}"
+    state: "{{ idmapd_restarted_state }}"
