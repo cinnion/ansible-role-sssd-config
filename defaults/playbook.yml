@@ -7,5 +7,5 @@
       when:
         - nfs_home_server is defined
         - nfs_domain is defined
-        - nfs_ldap_server is defined
-        - nfs_ldap_base is defined
+        - ldap_server is defined
+        - ldap_base is defined
