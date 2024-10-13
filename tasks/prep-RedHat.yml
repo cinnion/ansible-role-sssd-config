@@ -1,0 +1,20 @@
+---
+- name: Make sure we have the necessary selinux module for python on RedHat
+  yum:
+    name:
+      - python3-libselinux
+      - python3-libsemanage
+    state: present
+  when: (ansible_distribution == 'RedHat' and ansible_distribution_major_version in [ '8', '9' ])
+
+- name: Make sure we have sssd and openldap-clients, along with autofs and nfs-utils
+  dnf:
+    name:
+      - sssd
+      - openldap-clients
+      - autofs
+      - nfs-utils
+    state: installed
+
+- name: Run authselect
+  command: authselect select sssd --force
